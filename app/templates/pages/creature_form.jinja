@@ -1,0 +1,41 @@
+{#=====================================================
+  Help page
+=====================================================#}
+
+{% extends 'pages/_base.jinja' %}
+
+
+{% block content %}
+
+    <h2>Sign Up</h2>
+
+    <form method="post" action="/creature" enctype="multipart/form-data">
+    
+        <label>
+            Name
+            <input type = "text" name = "name" required>
+        </label>
+
+        <label>
+            Species
+            <input type = "text" name = "species" required>
+        </label>
+
+        <label>
+            Image
+                <input 
+                name="image"
+                type="file"
+                accept="image/png, image/jpeg, image/gif, image/webp"
+                required
+            >
+        </label>
+
+
+        <button>Submit</button>
+    </form>
+
+
+
+{% endblock %}
+
