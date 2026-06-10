@@ -115,13 +115,14 @@ def post_message():
 def delete_a_creature(id):
     with connect_db() as db:
         creature = db.execute("""
-            SELECT image_file
+            SELECT name, image_file
             FROM creatures
             WHERE id = ?
         """, (id,)).fetchone()
-        
-        filepath = os.path.join(UPLOAD_FOLDER, creature["image_file"])
-        os.remove(filepath)
+        if creature and creature["image_file"]:
+            filepath = os.path.join(UPLOAD_FOLDER, creature["image_file"])
+            if filepath:
+                os.remove(filepath)
         
         db.execute("""
             DELETE FROM creatures
@@ -129,7 +130,7 @@ def delete_a_creature(id):
         """, (id,))
         
         
-    flash("Message deleted", "success")
+    flash(f" {creature["name"]} deleted", "success")
     return redirect("/creatures")
 
 #===========================================================
