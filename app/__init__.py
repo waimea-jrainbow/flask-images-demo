@@ -106,6 +106,31 @@ def post_message():
 
         
         return redirect("/creatures")
+    
+    
+#===========================================================
+# Delete a creature route
+#===========================================================
+@app.get("/creature/<int:id>/delete")
+def delete_a_creature(id):
+    with connect_db() as db:
+        creature = db.execute("""
+            SELECT image_file
+            FROM creatures
+            WHERE id = ?
+        """, (id,)).fetchone()
+        
+        filepath = os.path.join(UPLOAD_FOLDER, creature["image_file"])
+        os.remove(filepath)
+        
+        db.execute("""
+            DELETE FROM creatures
+            WHERE id = ?
+        """, (id,))
+        
+        
+    flash("Message deleted", "success")
+    return redirect("/creatures")
 
 #===========================================================
 # Configure the app

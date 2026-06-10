@@ -19,6 +19,7 @@
                 <img 
                     src="/static/uploads/{{ creature.image_file }}" 
                     alt="An image of {{ creature.name }} the {{ creature.species }}">
+                    <a class="button" href="/creature/{{ creature.id }}/delete" onclick="return confirm('Really delete?')">🗑 Delete</a>
             </div>
 
         {% else %}
